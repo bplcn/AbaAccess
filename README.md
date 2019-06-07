@@ -8,7 +8,7 @@ julia> NodeDict,ElemDict,NSetDict,ElsetDict=MeshObtain(InpName);
 ```
 The information of nodes,elements,nsets and elsets will be stored in dictionarys.
 
-** Attention: both nset and elset now just support defined by nodes and elements id. And keyword *part and *assembly are not support yet.**
+*Attention: both nset and elset now just support defined by nodes and elements id. And keyword \*part and \*assembly are not support yet.*
 ---
 ## Installation
 ```
