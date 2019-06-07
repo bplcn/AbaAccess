@@ -185,5 +185,6 @@ function MeshObtain(InpName)
         end
         ElsetDict[ElSetName] = ElSetMember
     end
-    return NodeDict,ElemDict,NSetDict,ElsetDict,NodeOut
+    return NodeDict,ElemDict,NSetDict,ElsetDict
+    
 end
