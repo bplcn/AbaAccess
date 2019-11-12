@@ -166,23 +166,34 @@ function MeshObtain(InpName)
         Strtemp = StrLine[ElSetDefLineStart]
         Strtemp = filter(x -> !isspace(x), Strtemp)
         Strtemp = split(Strtemp,",")
-
-        ElSetName = split(Strtemp[end],"=")[end]
-
-        ElemLines = collect((ElSetDefLineStart+1):(ElSetDefLineEnd-1))
-        ElemTotal = length(ElemLines)
-        ElSetMember = []
-        for kelem = 1:ElemTotal
-            kline = ElemLines[kelem]
-            Strtemp = StrLine[kline]
-            Strtemp = filter(x -> !isspace(x), Strtemp)
+        ElSetName = split(Strtemp[2],"=")[end]
+        if Strtemp[end]=="generate"
+            kline = ElSetDefLineStart+1;
+            Strtemp = StrLine[kline];
+            Strtemp = filter(x -> !isspace(x), Strtemp);
             if Strtemp[end]==','
-                Strtemp = Strtemp[1:end-1]
+                Strtemp = Strtemp[1:end-1];
             end
-            Strtemp = split(Strtemp,",")
-            append!(ElSetMember,parse.(Int64,Strtemp))
-
+            Strtemp = split(Strtemp,",");
+            ElSetMember = collect(parse(Int64,Strtemp[1]):parse(Int64,Strtemp[2]):parse(Int64,Strtemp[2]));
+        else
+            ElemLines = collect((ElSetDefLineStart+1):(ElSetDefLineEnd-1))
+            ElemTotal = length(ElemLines)
+            ElSetMember = []
+            for kelem = 1:ElemTotal
+                kline = ElemLines[kelem]
+                Strtemp = StrLine[kline]
+                Strtemp = filter(x -> !isspace(x), Strtemp)
+                if Strtemp[end]==','
+                    Strtemp = Strtemp[1:end-1]
+                end
+                Strtemp = split(Strtemp,",")
+                append!(ElSetMember,parse.(Int64,Strtemp))
+            end
         end
+        
+
+        
         ElsetDict[ElSetName] = ElSetMember
     end
     return NodeDict,ElemDict,NSetDict,ElsetDict
