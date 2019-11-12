@@ -175,7 +175,7 @@ function MeshObtain(InpName)
                 Strtemp = Strtemp[1:end-1];
             end
             Strtemp = split(Strtemp,",");
-            ElSetMember = collect(parse(Int64,Strtemp[1]):parse(Int64,Strtemp[2]):parse(Int64,Strtemp[2]));
+            ElSetMember = collect(parse(Int64,Strtemp[1]):parse(Int64,Strtemp[3]):parse(Int64,Strtemp[2]));
         else
             ElemLines = collect((ElSetDefLineStart+1):(ElSetDefLineEnd-1))
             ElemTotal = length(ElemLines)
