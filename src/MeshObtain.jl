@@ -135,11 +135,18 @@ function MeshObtain(InpName)
             NSetDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>NSetDefLineStart))]
         catch
         end
+
+        # Strtemp = StrLine[NSetDefLineStart]
+        # Strtemp = split(Strtemp,", ")
+        # Strtemp = filter(x -> !isspace(x), Strtemp[end])
+        # # NSetName = Strtemp[6:end]
+        # NSetName = split(Strtemp[2],"=")[end]
+
         Strtemp = StrLine[NSetDefLineStart]
-        Strtemp = split(Strtemp,", ")
-        Strtemp = filter(x -> !isspace(x), Strtemp[end])
-        # NSetName = Strtemp[6:end]
+        Strtemp = filter(x -> !isspace(x), Strtemp)
+        Strtemp = split(Strtemp,",")
         NSetName = split(Strtemp[2],"=")[end]
+
         if NSetName[1]=='_'
             continue
         end
