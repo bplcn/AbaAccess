@@ -140,6 +140,9 @@ function MeshObtain(InpName)
         Strtemp = filter(x -> !isspace(x), Strtemp[end])
         # NSetName = Strtemp[6:end]
         NSetName = split(Strtemp[2],"=")[end]
+        if NSetName[1]=='_'
+            continue
+        end
 
         if Strtemp[end]=="generate"
             kline = NSetDefLineStart+1;
@@ -180,6 +183,10 @@ function MeshObtain(InpName)
         Strtemp = filter(x -> !isspace(x), Strtemp)
         Strtemp = split(Strtemp,",")
         ElSetName = split(Strtemp[2],"=")[end]
+        if ElSetName[1]=='_'
+            continue
+        end
+
         if Strtemp[end]=="generate"
             kline = ElSetDefLineStart+1;
             Strtemp = StrLine[kline];
