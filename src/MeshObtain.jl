@@ -138,21 +138,34 @@ function MeshObtain(InpName)
         Strtemp = StrLine[NSetDefLineStart]
         Strtemp = split(Strtemp,", ")
         Strtemp = filter(x -> !isspace(x), Strtemp[end])
-        NSetName = Strtemp[6:end]
+        # NSetName = Strtemp[6:end]
+        NSetName = split(Strtemp[2],"=")[end]
 
-        NodeLines = collect((NSetDefLineStart+1):(NSetDefLineEnd-1))
-        NodeTotal = length(NodeLines)
-        NSetMember = []
-        for knode = 1:NodeTotal
-            kline = NodeLines[knode]
-            Strtemp = StrLine[kline]
-            Strtemp = filter(x -> !isspace(x), Strtemp)
+        if Strtemp[end]=="generate"
+            kline = NSetDefLineStart+1;
+            Strtemp = StrLine[kline];
+            Strtemp = filter(x -> !isspace(x), Strtemp);
+            if Strtemp[end]==','
+                Strtemp = Strtemp[1:end-1];
+            end
+            Strtemp = split(Strtemp,",");
+            NSetMember = collect(parse(Int64,Strtemp[1]):parse(Int64,Strtemp[3]):parse(Int64,Strtemp[2]));
 
-            Strtemp = split(Strtemp,",")
-            Strtemp = Strtemp[.~(isempty.(Strtemp))]
-            append!(NSetMember,parse.(Int64,Strtemp))
+        else
+            NodeLines = collect((NSetDefLineStart+1):(NSetDefLineEnd-1))
+            NodeTotal = length(NodeLines)
+            NSetMember = []
+            for knode = 1:NodeTotal
+                kline = NodeLines[knode]
+                Strtemp = StrLine[kline]
+                Strtemp = filter(x -> !isspace(x), Strtemp)
 
+                Strtemp = split(Strtemp,",")
+                Strtemp = Strtemp[.~(isempty.(Strtemp))]
+                append!(NSetMember,parse.(Int64,Strtemp))
+            end
         end
+        
         NSetDict[NSetName] = NSetMember
     end
 
