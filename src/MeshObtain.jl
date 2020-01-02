@@ -175,7 +175,7 @@ function MeshObtain(InpName)
                 try
                     append!(NSetMember,parse.(Int64,Strtemp))
                 catch
-                    println("the nset "*NSetName[1]*" seems not a set defined by nodal id.")
+                    println("the nset "*NSetName*" seems not a set defined by nodal id.")
                     break
                 end
             end
@@ -220,7 +220,12 @@ function MeshObtain(InpName)
                     Strtemp = Strtemp[1:end-1]
                 end
                 Strtemp = split(Strtemp,",")
-                append!(ElSetMember,parse.(Int64,Strtemp))
+                try
+                    append!(ElSetMember,parse.(Int64,Strtemp))
+                catch
+                    println("the elset "*ElSetName*" seems not a set defined by nodal id.")
+                    break
+                end
             end
         end
         
