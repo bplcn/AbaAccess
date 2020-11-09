@@ -10,7 +10,9 @@ fID = open(FileName,"w");
 NodesWrite!(fID,NodeDict);
 
 # write elements
-ElementsWrite!(fID,ElemDict;ElemType="CPE4");
+ElemIDArray = collect(keys(ElemDict));
+ElementsWrite!(fID,ElemDict,ElemIDArray;ElemType="CPE4");
+# ElementsWrite!(fID,ElemDict;ElemType="CPE4");
 
 # write nset
 NSetWrite!(fID,NSetDict);

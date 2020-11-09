@@ -51,6 +51,35 @@ function ElementsWrite!(fID::IOStream,ElemDict::Dict;ElemType::String,SetName=""
 end
 
 """
+    ElementsWrite!(fID::IOStream,ElemDict::Dict;ElemIDArray::Array,ElemType::String,SetName="")
+
+write element definition with given elemID array
+"""
+function ElementsWrite!(fID::IOStream,ElemDict::Dict,ElemIDArray::Array;ElemType::String,SetName="")
+
+    if isempty(filter(x->!isspace(x),SetName))
+        println(fID,"*Element, type="*ElemType);
+    else
+        println(fID,"*Element, type="*ElemType*",nset"*SetName);
+    end
+
+    sort!(ElemIDArray);
+
+    for elemID in ElemIDArray
+        elemStr = "$(elemID)"
+        for knode = 1:length(ElemDict[elemID])
+            elemStr*=", $(ElemDict[elemID][knode])"
+        end
+        println(fID,elemStr);
+    end
+   
+    return fID
+    
+end
+
+
+
+"""
     NSetWrite!(fID::IOStream,NSetDict::Dict)
 
 write nset

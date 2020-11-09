@@ -1,9 +1,10 @@
 # AbaAccess.jl
-A simple module with one function MeshObtain to get mesh information, including nodes, elements, nodesets and elsets from an .inp file.
+A simple module with one function MeshObtain to get mesh information, including nodes, elements, nodesets and elsets from an `.inp` file.
 ---
 ## Documents
 ### Read an `.inp` file
 *example*
+
 ```julia
 NodeDict,ElemDict,NSetDict,ElSetDict=MeshObtain(InpName);
 ```
@@ -27,7 +28,7 @@ ElemType = "CPE4";    # any type you need
 ElementsWrite!(fID,ElemDict;ElemType=ElemType);
 
 # write nset
-SetWrite!(fID,NSetDict);
+NSetWrite!(fID,NSetDict);
 
 # write elset 
 ElSetWrite!(fID,ElSetDict);
@@ -44,6 +45,11 @@ Meanwhile, an optional function is also provided to output the mesh information 
 FileName = "test2.inp";
 LazyMeshWrite(NodeDict,ElemDict,NSetDict,ElSetDict;ElemType=ElemType,FileName=FileName);
 
+```
+
+Alternatively, the definition of element can also by given element ID array
+```julia
+ElementsWrite!(fID,ElemDict,ElemIDArray;ElemType=ElemType);
 ```
 
 
