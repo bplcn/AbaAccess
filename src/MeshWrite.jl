@@ -8,7 +8,7 @@ function NodesWrite!(fID::IOStream,NodeDict::Dict;SetName="")
     if isempty(filter(x->!isspace(x),SetName))
         println(fID,"*Node");
     else
-        println(fID,"*Node, nset"*SetName);
+        println(fID,"*Node, nset="*SetName);
     end
 
     NodeIDArray = sort(collect(keys(NodeDict)));
@@ -34,7 +34,7 @@ function ElementsWrite!(fID::IOStream,ElemDict::Dict;ElemType::String,SetName=""
     if isempty(filter(x->!isspace(x),SetName))
         println(fID,"*Element, type="*ElemType);
     else
-        println(fID,"*Element, type="*ElemType*",nset"*SetName);
+        println(fID,"*Element, type="*ElemType*",elset="*SetName);
     end
 
     ElemIDArray = sort(collect(keys(ElemDict)));
@@ -60,7 +60,7 @@ function ElementsWrite!(fID::IOStream,ElemDict::Dict,ElemIDArray::Array;ElemType
     if isempty(filter(x->!isspace(x),SetName))
         println(fID,"*Element, type="*ElemType);
     else
-        println(fID,"*Element, type="*ElemType*",nset"*SetName);
+        println(fID,"*Element, type="*ElemType*",elset="*SetName);
     end
 
     sort!(ElemIDArray);
@@ -118,7 +118,7 @@ write elset
 function ElSetWrite!(fID::IOStream,ElSetDict::Dict)
     
     for (SetName,SetMembers) in ElSetDict
-        println(fID,"*Elset, Elset="*SetName);
+        println(fID,"*Elset, elset="*SetName);
         nnode = length(SetMembers);
         nline = Int64.((length(SetMembers)+10-mod(length(SetMembers),10))/10);
         for kline = 1:(nline-1)
