@@ -83,7 +83,7 @@ function MeshObtain(InpName)
     end
 
     ElemDict = Dict{Int64,Array{Int64,1}}()
-    ElsetDict = DictDict{String,Array{Int64,1}}()
+    ElsetDict = Dict{String,Array{Int64,1}}()
     @inbounds for kelemblock = 1:length(ElementDefLineArray)
         ElemDefLineStart = ElementDefLineArray[kelemblock]
         ElemDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>ElemDefLineStart))]
@@ -125,7 +125,7 @@ function MeshObtain(InpName)
         end
     end
 
-    NSetDict = DictDict{String,Array{Int64,1}}()
+    NSetDict = Dict{String,Array{Int64,1}}()
     @inbounds for ksetblock = 1:length(NodeSetLineArray)
         NSetDefLineStart = NodeSetLineArray[ksetblock]
         NSetDefLineEnd = length(StrLine)+1
