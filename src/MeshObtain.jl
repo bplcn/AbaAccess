@@ -55,7 +55,7 @@ function MeshObtain(InpName)
         try
             NodesDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>NodesDefLineStart))]
         catch
-            @warning "No node definition"
+            @info "No node definition"
             break
         end
 
@@ -96,7 +96,7 @@ function MeshObtain(InpName)
         try
             ElemDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>ElemDefLineStart))]
         catch
-            @warning "No element definition"
+            @info "No element definition"
             break
         end
         ElemLines = collect((ElemDefLineStart+1):(ElemDefLineEnd-1))
