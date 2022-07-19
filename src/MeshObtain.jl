@@ -49,8 +49,15 @@ function MeshObtain(InpName)
     NodeDict = Dict{Int64,Array{Float64,1}}()
     NodeOut = Dict()
     @inbounds for knodeblock = 1:length(NodesDefLineArray)
+
         NodesDefLineStart = NodesDefLineArray[knodeblock]
-        NodesDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>NodesDefLineStart))]
+
+        try
+            NodesDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>NodesDefLineStart))]
+        catch
+            @warning "No node definition"
+            break
+        end
 
         Strtemp = StrLine[NodesDefLineStart]
         Strtemp = split(Strtemp,",")
@@ -86,7 +93,12 @@ function MeshObtain(InpName)
     ElsetDict = Dict{String,Array{Int64,1}}()
     @inbounds for kelemblock = 1:length(ElementDefLineArray)
         ElemDefLineStart = ElementDefLineArray[kelemblock]
-        ElemDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>ElemDefLineStart))]
+        try
+            ElemDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>ElemDefLineStart))]
+        catch
+            @warning "No element definition"
+            break
+        end
         ElemLines = collect((ElemDefLineStart+1):(ElemDefLineEnd-1))
         ElemTotal = length(ElemLines)
 
