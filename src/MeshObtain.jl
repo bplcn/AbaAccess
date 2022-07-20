@@ -52,12 +52,14 @@ function MeshObtain(InpName)
 
         NodesDefLineStart = NodesDefLineArray[knodeblock]
 
-        try
-            NodesDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>NodesDefLineStart))]
-        catch
-            @info "No node definition"
-            break
-        end
+        NodesDefLineEnd = Keywordorcomment[end]>NodesDefLineStart ? Keywordorcomment[minimum(findall(Keywordorcomment.>NodesDefLineStart))] : length(StrLine)+1
+
+        # try
+        #     NodesDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>NodesDefLineStart))]
+        # catch
+        #     # no other key word is used after the node, just point to the end of the file
+        #     NodesDefLineEnd = length(StrLine)+1
+        # end
 
         Strtemp = StrLine[NodesDefLineStart]
         Strtemp = split(Strtemp,",")
@@ -92,13 +94,18 @@ function MeshObtain(InpName)
     ElemDict = Dict{Int64,Array{Int64,1}}()
     ElsetDict = Dict{String,Array{Int64,1}}()
     @inbounds for kelemblock = 1:length(ElementDefLineArray)
+
         ElemDefLineStart = ElementDefLineArray[kelemblock]
-        try
-            ElemDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>ElemDefLineStart))]
-        catch
-            @info "No element definition"
-            break
-        end
+
+        ElemDefLineEnd = Keywordorcomment[end]>ElemDefLineStart ? Keywordorcomment[minimum(findall(Keywordorcomment.>ElemDefLineStart))] : length(StrLine)+1
+
+        # try
+        #     ElemDefLineEnd = Keywordorcomment[minimum(findall(Keywordorcomment.>ElemDefLineStart))]
+        # catch
+        #      # no other key word is used after the node, just point to the end of the file
+        #      NodesDefLineEnd = length(StrLine)+1
+        # end
+        
         ElemLines = collect((ElemDefLineStart+1):(ElemDefLineEnd-1))
         ElemTotal = length(ElemLines)
 
