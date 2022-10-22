@@ -248,6 +248,9 @@ function MeshObtain(InpName)
         
         ElsetDict[ElSetName] = ElSetMember
     end
+
+    close(fID)
+    
     return NodeDict,ElemDict,NSetDict,ElsetDict
     
 end
